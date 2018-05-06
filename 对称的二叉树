@@ -1,0 +1,30 @@
+/*
+
+Author: 799
+Data : 2018.5.6
+
+
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    bool isSymmetrical(TreeNode* root)
+    {
+        if (root == NULL) return true;
+        return Symmetrical(root->left,root->right);
+    }
+    bool Symmetrical(TreeNode* r1,TreeNode* r2){
+        if (r1 == NULL && r2 == NULL) return  true;
+        if (r1 == NULL || r2 == NULL) return false;
+        if (r1->val != r2->val) return false;
+        return Symmetrical(r1->left,r2->right) && Symmetrical(r1->right,r2->left);
+    }
+
+};
