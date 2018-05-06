@@ -10,6 +10,23 @@ struct TreeNode {
 class Solution {
 public:
     vector<vector<int> > FindPath(TreeNode* root,int expectNumber) {
-        
+        vector<int> tmp;
+        vector<vector <int> > ret;
+        if (root == NULL) return ret;
+        Find(root,0,expectNumber ,tmp,ret);
+        return ret;
+    }
+    bool IsLeaf(TreeNode* root){
+        return root->left == NULL && root->right == NULL;
+    }
+    void Find(TreeNode* root, int sum,int target,vector<int>tmp, vector<vector <int> >& ret){
+        if (root == NULL) return;
+        sum += root->val;
+        tmp.push_back(root->val);
+        if (sum == target && IsLeaf(root)){
+           ret.push_back(tmp);
+        }
+        Find(root->left,sum,target ,tmp, ret);
+        Find(root->right,sum,target ,tmp, ret);
     }
 };
