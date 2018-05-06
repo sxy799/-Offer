@@ -1,0 +1,63 @@
+/*
+
+Author: 799
+Data : 2018.5.6
+
+
+struct TreeLinkNode {
+    int val;
+    struct TreeLinkNode *left;
+    struct TreeLinkNode *right;
+    struct TreeLinkNode *next;
+    TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {
+        
+    }
+};
+*/
+class Solution {
+public:
+    TreeLinkNode* GetNext(TreeLinkNode* node)
+    {
+        // 特殊情况
+        if(node == NULL) return NULL;
+        // 只要有右子树，后缀一定在右子树
+        if(node->right != NULL)
+        {
+            node = node->right;
+            while(node->left != NULL)
+                node = node->left;
+            return node;
+        }  
+        while(node->next != NULL)
+        {
+            TreeLinkNode *p = node->next;
+            if(p->left == node)
+                return p;
+            node=node->next;
+        }
+        return NULL;
+    }
+};
+
+
+
+/***
+                  8
+             /         \
+          6              10
+      /      \         /     \
+    5          7      9       11
+./    \     /    \
+4.5  5.5   6.5   7.5
+
+一共分为三种情况：
+1：节点是空
+2：有右子树
+3：无右子树
+  如 4.5 和 6.5 是父亲的左侧子树 ，后缀是 他们的父亲节点
+  如 5.5 和 7.5 是父亲的右侧子树（并且自己没有右子树） ，
+  后缀一定不在自己的父亲的这棵树，可以这样想把自己的数值换到父亲节点的值，递归处理
+  
+  
+  
+  **/
