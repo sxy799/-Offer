@@ -1,0 +1,52 @@
+/*
+
+Author: 799
+Data : 2018.5.7
+
+
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+        vector<vector<int> > Print(TreeNode* root) {
+            vector<vector<int> >ret;
+            vector<int> tmp;
+            queue<TreeNode*>s1,s2;
+            while (!s1.empty()) s1.pop();
+            while (!s2.empty()) s2.pop();
+            s1.push(root);
+           while (!s1.empty() || !s2.empty()){
+           while (!s1.empty()){
+           TreeNode* first = s1.front();
+           s1.pop();
+           if (first != NULL) {
+              tmp.push_back(first->val);
+              s2.push(first->left);
+              s2.push(first->right);
+          }
+        }
+        tmp.size() != 0 && (ret.push_back(tmp),1);
+        tmp.clear();
+        while (!s2.empty()){
+          TreeNode* first = s2.front();
+          s2.pop();
+          if (first != NULL) {
+            tmp.push_back(first->val);
+             s1.push(first->left);
+             s1.push(first->right);
+          }
+        }
+        tmp.size() != 0 && (ret.push_back(tmp),1);  
+        tmp.clear();
+      }
+      return ret; 
+      }
+    
+};
