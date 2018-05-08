@@ -1,0 +1,35 @@
+/**
+
+ Author : 799
+ Date : 2018.5.8
+ 
+*  struct ListNode {
+*        int val;
+*        struct ListNode *next;
+*        ListNode(int x) :
+*              val(x), next(NULL) {
+*        }
+*  };
+*/
+class Solution {
+public:
+    vector<int> printListFromTailToHead(ListNode* head) {
+        vector<int> v;
+        ListNode* a = head; 
+        ListNode* b ;
+        ListNode* ret = (ListNode *)malloc(sizeof(ListNode) * 1 );
+        ret->next = NULL;
+        while (a) {
+            b = a->next;
+            a->next =  ret->next;
+            ret->next = a;
+            a = b;
+        }
+        ret = ret->next;
+        while (ret){
+            v.push_back(ret->val);
+            ret = ret->next;
+        }
+        return v;
+    }
+};
