@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> printMatrix(vector<vector<int> > matrix) {
+         int row = matrix.size();
+         int col = matrix[0].size();
+         int vis[row + 5][col + 5] ;
+         memset(vis,0,sizeof(vis));
+         int dx[4] = {0,1,0,-1};
+         int dy[4] = {1,0,-1,0};
+         int x = 0, y = 0;
+         int d = 0;
+         vis[0][0] = 1;
+         vector<int> ret;
+         ret.push_back(matrix[0][0]);
+         int t = row * col;
+        while (t--){
+           while (x + dx[d] >= 0 && x + dx[d] < row && y + dy[d] >= 0 && y + dy[d] < col && !vis[x + dx[d] ][ y + dy[d] ]){
+            x = x + dx[d];
+            y = y + dy[d];
+            ret.push_back(matrix[x][y]);
+            vis[x][y] = 1;
+          }
+            d++;
+            d %= 4;
+        }
+        return ret;
+    }
+};
